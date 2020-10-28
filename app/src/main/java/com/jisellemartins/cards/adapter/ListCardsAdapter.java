@@ -1,17 +1,22 @@
 package com.jisellemartins.cards.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.cards.R;
+import com.jisellemartins.cards.activities.MainActivity;
 import com.jisellemartins.cards.models.Card;
 
 import java.util.List;
@@ -19,10 +24,13 @@ import java.util.List;
 public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.ViewHolder> {
     List<Card> list;
     Context context;
+    Activity activity;
+    private AlertDialog alerta;
 
-    public ListCardsAdapter(List<Card> list, Context context) {
+    public ListCardsAdapter(List<Card> list, Context context, Activity activity) {
         this.list = list;
         this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -34,17 +42,28 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Card card = list.get(position);
+        final Card card = list.get(position);
 
-        holder.descCard.setText(card.getDesc());
+        holder.descCard.setText(card.getDescricao());
         
         holder.itemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "show dialog", Toast.LENGTH_SHORT).show();
+                showDialog(activity);
             }
         });
 
+    }
+
+    public void showDialog(Activity activity){
+        LayoutInflater li = activity.getLayoutInflater();
+
+        View view = li.inflate(R.layout.dialog_standard, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setView(view);
+        alerta = builder.create();
+        alerta.show();
     }
 
     @Override

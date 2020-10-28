@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.jisellemartins.cards.R;
 import com.jisellemartins.cards.adapter.ListCardsAdapter;
+import com.jisellemartins.cards.db.CardDAO;
 import com.jisellemartins.cards.models.Card;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnAddCard;
-    private List<Card> listCard = new ArrayList<>();
     private RecyclerView rvCards;
+    private CardDAO dao;
 
 
     @Override
@@ -27,22 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        btnAddCard = findViewById(R.id.btnAddCard);
-        rvCards = findViewById(R.id.rvCards);
+        linkLayout();
 
-        for (int a = 0; a < 20; a++){
-            Card card = new Card();
+        dao = new CardDAO(getApplicationContext());
 
-            card.setDesc("Cartão " + a);
 
-            listCard.add(card);
-        }
-
-        ListCardsAdapter adapter = new ListCardsAdapter(listCard, getApplicationContext());
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        rvCards.setLayoutManager(llm);
-        rvCards.setHasFixedSize(true);
-        rvCards.setAdapter(adapter);
+        showList();
 
 
         btnAddCard.setOnClickListener(new View.OnClickListener() {
@@ -51,5 +42,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, CardRegister.class));
             }
         });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showList();
+    }
+
+    public void linkLayout(){
+        btnAddCard = findViewById(R.id.btnAddCard);
+        rvCards = findViewById(R.id.rvCards);
+    }
+
+    public void showList(){
+        ListCardsAdapter adapter = new ListCardsAdapter(dao.selectAll(), getApplicationContext(), this);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rvCards.setLayoutManager(llm);
+        rvCards.setHasFixedSize(true);
+        rvCards.setAdapter(adapter);
     }
 }
