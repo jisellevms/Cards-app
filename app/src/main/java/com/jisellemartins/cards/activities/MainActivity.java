@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         dao = new CardDAO(getApplicationContext());
 
 
-        showList();
 
 
         btnAddCard.setOnClickListener(new View.OnClickListener() {

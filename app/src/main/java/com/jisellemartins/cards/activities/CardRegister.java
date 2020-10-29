@@ -35,7 +35,13 @@ public class CardRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Card card = new Card();
-                card.setNumber(Integer.parseInt(String.valueOf(etNumber.getText())));
+                long cardNumber;
+                if (etNumber.getText().toString().isEmpty()){
+                    cardNumber = 0;
+                }else {
+                    cardNumber = Long.parseLong(etNumber.getText().toString());
+                }
+                card.setNumber(cardNumber);
                 card.setValidity(etValidity.getText().toString());
                 card.setCodSecutiry(etCod.getText().toString());
                 card.setPassword(etPassword.getText().toString());

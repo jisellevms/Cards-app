@@ -29,7 +29,7 @@ public class CardDAO {
         while (cursor.moveToNext()) {
             Card card = new Card();
             card.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            card.setNumber(cursor.getInt(cursor.getColumnIndex("number")));
+            card.setNumber(cursor.getLong(cursor.getColumnIndex("number")));
             card.setValidity(cursor.getString(cursor.getColumnIndex("validity")));
             card.setCodSecutiry(cursor.getString(cursor.getColumnIndex("codSecutiry")));
             card.setPassword(cursor.getString(cursor.getColumnIndex("password")));
@@ -48,7 +48,7 @@ public class CardDAO {
         while (cursor.moveToNext()) {
             Card card = new Card();
             card.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            card.setNumber(cursor.getInt(cursor.getColumnIndex("number")));
+            card.setNumber(cursor.getLong(cursor.getColumnIndex("number")));
             card.setValidity(cursor.getString(cursor.getColumnIndex("validity")));
             card.setCodSecutiry(cursor.getString(cursor.getColumnIndex("codSecutiry")));
             card.setPassword(cursor.getString(cursor.getColumnIndex("password")));

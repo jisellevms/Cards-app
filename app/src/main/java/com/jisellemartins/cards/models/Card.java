@@ -2,7 +2,7 @@ package com.jisellemartins.cards.models;
 
 public class Card {
     private int id;
-    private int number;
+    private long number;
     private String validity;
     private String codSecutiry;
     private String password;
@@ -17,11 +17,11 @@ public class Card {
         this.id = id;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(long number) {
         this.number = number;
     }
 
