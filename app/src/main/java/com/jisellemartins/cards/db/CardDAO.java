@@ -34,7 +34,6 @@ public class CardDAO {
             card.setCodSecutiry(cursor.getString(cursor.getColumnIndex("codSecutiry")));
             card.setPassword(cursor.getString(cursor.getColumnIndex("password")));
             card.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
-            card.setKey(cursor.getString(cursor.getColumnIndex("key")));
 
             lstCard.add(card);
         }
@@ -53,7 +52,6 @@ public class CardDAO {
             card.setCodSecutiry(cursor.getString(cursor.getColumnIndex("codSecutiry")));
             card.setPassword(cursor.getString(cursor.getColumnIndex("password")));
             card.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
-            card.setKey(cursor.getString(cursor.getColumnIndex("key")));
 
             lstCard.add(card);
         }
@@ -67,7 +65,6 @@ public class CardDAO {
         contentValues.put("codSecutiry", card.getCodSecutiry());
         contentValues.put("password", card.getPassword());
         contentValues.put("descricao", card.getDescricao());
-        contentValues.put("key", card.getKey());
         try {
             long result = write.insert(DBHelper.TABLE_CARDS, null, contentValues);
             return result != -1;
@@ -77,7 +74,6 @@ public class CardDAO {
     }
 
     public boolean delete(int id) {
-        // Calcula qual resultado da data atual menos 30 dias, e passa a data
         String sql = "DELETE FROM " + DBHelper.TABLE_CARDS + " WHERE id = " + id + ";";
         read.execSQL(sql);
         return true;

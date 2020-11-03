@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int VERSION_DATA_BASE = 3;
+    public static final int VERSION_DATA_BASE = 4;
     public static final String NAME_DATA_BASE = "database.db";
 
     public static final String TABLE_CARDS = " cards ";
@@ -28,8 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "validity TEXT," +
                 "codSecutiry TEXT," +
                 "password TEXT," +
-                "descricao TEXT," +
-                "key TEXT );";
+                "descricao TEXT);";
 
         db.execSQL(cardsTable);
     }

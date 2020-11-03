@@ -43,45 +43,19 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
         final Card card = list.get(position);
 
         holder.descCard.setText(card.getDescricao());
-        
+
         holder.itemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogConfirmKey(activity, card);
+                dialogShowData(activity, card);
             }
         });
 
     }
 
-    public void dialogConfirmKey(final Activity activity, final Card card){
-        LayoutInflater li = activity.getLayoutInflater();
 
-        View view = li.inflate(R.layout.dialog_confirm_key, null);
-        final EditText etKeyConfirm = view.findViewById(R.id.etKeyConfirm);
-        view.findViewById(R.id.btnExibir).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                String keyConfirm = etKeyConfirm.getText().toString();
 
-                if (!keyConfirm.isEmpty() && !(keyConfirm == null)){
-                    if (keyConfirm.equals(card.getKey())){
-                        alerta.dismiss();
-                        dialogShowData(activity, card);
-                    }else{
-                        Toast.makeText(activity, "chave incorreta", Toast.LENGTH_SHORT).show();
-                        alerta.dismiss();
-                    }
-                }else {
-                    Toast.makeText(activity, "Preencha o campo para ter acesso aos dados", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setView(view);
-        alerta = builder.create();
-        alerta.show();
-    }
-
-    public void dialogShowData(final Activity activity, final Card card){
+    public void dialogShowData(final Activity activity, final Card card) {
         LayoutInflater li = activity.getLayoutInflater();
 
         View view = li.inflate(R.layout.dialog_show_data, null);
@@ -108,7 +82,7 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView descCard;
         private ConstraintLayout itemCard;

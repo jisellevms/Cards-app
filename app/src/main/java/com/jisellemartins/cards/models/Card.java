@@ -7,7 +7,6 @@ public class Card {
     private String codSecutiry;
     private String password;
     private String descricao;
-    private String key;
 
     public int getId() {
         return id;
@@ -57,11 +56,4 @@ public class Card {
         this.descricao = descricao;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

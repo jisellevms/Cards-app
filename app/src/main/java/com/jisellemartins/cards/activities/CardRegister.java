@@ -17,7 +17,7 @@ import com.jisellemartins.cards.models.Card;
 public class CardRegister extends AppCompatActivity {
     private ImageView imgBack;
     private Button btnSave;
-    private EditText etNumber, etValidity, etCod, etPassword, etDesc, etKey;
+    private EditText etNumber, etValidity, etCod, etPassword, etDesc;
 
     private CardDAO dao;
 
@@ -46,7 +46,6 @@ public class CardRegister extends AppCompatActivity {
                 card.setCodSecutiry(etCod.getText().toString());
                 card.setPassword(etPassword.getText().toString());
                 card.setDescricao(etDesc.getText().toString());
-                card.setKey(etKey.getText().toString());
                 dao.insert(card);
                 Toast.makeText(CardRegister.this, "Cartão registrado com sucesso", Toast.LENGTH_SHORT).show();
                 finish();
@@ -69,6 +68,5 @@ public class CardRegister extends AppCompatActivity {
         etCod = findViewById(R.id.etCod);
         etPassword = findViewById(R.id.etPassword);
         etDesc = findViewById(R.id.etDesc);
-        etKey = findViewById(R.id.etKey);
     }
 }
