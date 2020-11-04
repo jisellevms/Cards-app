@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -49,20 +50,13 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
 
         holder.descCard.setText(card.getDescricao());
 
-        holder.itemCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogShowData(activity, card);
-            }
-        });
+        holder.itemCard.setOnClickListener(v -> dialogShowData(activity, card));
 
-        holder.itemCard.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                dao.delete(card.getId());
-                updateLayout.updateList();
-                return false;
-            }
+        holder.itemCard.setOnLongClickListener(v -> {
+            dao.delete(card.getId());
+            updateLayout.updateList();
+            Toast.makeText(context, "Cartão excluído com sucesso", Toast.LENGTH_SHORT).show();
+            return false;
         });
 
     }
