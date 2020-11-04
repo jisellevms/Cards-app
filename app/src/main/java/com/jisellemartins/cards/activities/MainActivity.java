@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jisellemartins.cards.R;
+import com.jisellemartins.cards.UpdateLayout;
 import com.jisellemartins.cards.adapter.ListCardsAdapter;
 import com.jisellemartins.cards.db.CardDAO;
 import com.jisellemartins.cards.models.Card;
@@ -25,7 +27,7 @@ import com.jisellemartins.cards.util.Keys;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UpdateLayout {
     private Button btnAddCard;
     private RecyclerView rvCards;
     private CardDAO dao;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showList() {
-        ListCardsAdapter adapter = new ListCardsAdapter(dao.selectAll(), getApplicationContext(), this);
+        ListCardsAdapter adapter = new ListCardsAdapter(dao.selectAll(), getApplicationContext(), this, this);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rvCards.setLayoutManager(llm);
         rvCards.setHasFixedSize(true);
@@ -137,5 +139,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean getPreferencesBoolean(String key) {
         return preferences.getBoolean(key, true);
+    }
+
+    @Override
+    public void updateList() {
+        new Handler().postDelayed(() -> showList() ,1000);
     }
 }

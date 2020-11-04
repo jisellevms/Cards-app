@@ -1,20 +1,21 @@
 package com.jisellemartins.cards.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jisellemartins.cards.R;
+import com.jisellemartins.cards.UpdateLayout;
+import com.jisellemartins.cards.db.CardDAO;
 import com.jisellemartins.cards.models.Card;
 
 import java.util.List;
@@ -24,11 +25,13 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
     Context context;
     Activity activity;
     private AlertDialog alerta;
+    UpdateLayout updateLayout;
 
-    public ListCardsAdapter(List<Card> list, Context context, Activity activity) {
+    public ListCardsAdapter(List<Card> list, Context context, Activity activity, UpdateLayout updateLayout) {
         this.list = list;
         this.context = context;
         this.activity = activity;
+        this.updateLayout = updateLayout;
     }
 
     @NonNull
@@ -38,8 +41,10 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
         return new ViewHolder(view);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final CardDAO dao = new CardDAO(activity);
         final Card card = list.get(position);
 
         holder.descCard.setText(card.getDescricao());
@@ -48,6 +53,15 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.View
             @Override
             public void onClick(View v) {
                 dialogShowData(activity, card);
+            }
+        });
+
+        holder.itemCard.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                dao.delete(card.getId());
+                updateLayout.updateList();
+                return false;
             }
         });
 
