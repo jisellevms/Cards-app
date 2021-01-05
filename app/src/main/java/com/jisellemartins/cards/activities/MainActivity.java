@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -52,13 +53,7 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
         dialogConfirmKey(this);
 
 
-        btnAddCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CardRegister.class));
-            }
-        });
-
+        btnAddCard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CardRegister.class)));
 
     }
 
@@ -85,32 +80,49 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
         LayoutInflater li = activity.getLayoutInflater();
 
         View view = li.inflate(R.layout.dialog_confirm_key, null);
+
+
         final EditText etKeyConfirm = view.findViewById(R.id.etKeyConfirm);
         final Button btn = view.findViewById(R.id.btnExibir);
+        final Button btn1 = view.findViewById(R.id.btn1);
+        final Button btn2 = view.findViewById(R.id.btn2);
+        final Button btn3 = view.findViewById(R.id.btn3);
+        final Button btn4 = view.findViewById(R.id.btn4);
+        final Button btn5 = view.findViewById(R.id.btn5);
+        final Button btn6 = view.findViewById(R.id.btn6);
+        final Button btn7 = view.findViewById(R.id.btn7);
+        final Button btn8 = view.findViewById(R.id.btn8);
+        final Button btn9 = view.findViewById(R.id.btn9);
+
         if (getPreferencesBoolean(Keys.SET_KEY)){
             btn.setText("Salvar chave");
         }else{
             btn.setText("Exibir");
         }
-        view.findViewById(R.id.btnExibir).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                if (etKeyConfirm.getText().toString().isEmpty()){
-                    Toast.makeText(activity, "Preencha o campo", Toast.LENGTH_SHORT).show();
+
+        btn1.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "1"));
+        btn2.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "2"));
+
+
+
+
+        btn.setOnClickListener(arg0 -> {
+            if (etKeyConfirm.getText().toString().isEmpty()){
+                Toast.makeText(activity, "Preencha o campo", Toast.LENGTH_SHORT).show();
+            }else{
+                if (getPreferencesBoolean(Keys.SET_KEY)) {
+                    setPreferencesString(Keys.KEY, etKeyConfirm.getText().toString());
+                    setPreferencesBoolean(Keys.SET_KEY, false);
+                    alerta.dismiss();
+                    showList();
                 }else{
-                    if (getPreferencesBoolean(Keys.SET_KEY)) {
-                        setPreferencesString(Keys.KEY, etKeyConfirm.getText().toString());
-                        setPreferencesBoolean(Keys.SET_KEY, false);
+                    String key = getPreferencesString(Keys.KEY);
+                    if (etKeyConfirm.getText().toString().equals(key)){
                         alerta.dismiss();
                         showList();
                     }else{
-                        String key = getPreferencesString(Keys.KEY);
-                        if (etKeyConfirm.getText().toString().equals(key)){
-                            alerta.dismiss();
-                            showList();
-                        }else{
-                            Toast.makeText(activity, "Chave incorreta", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+                        Toast.makeText(activity, "Chave incorreta", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }
             }
