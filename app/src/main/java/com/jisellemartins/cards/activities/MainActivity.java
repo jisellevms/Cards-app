@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jisellemartins.cards.R;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
     private AlertDialog alerta;
     private SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    private TextView tvEmptyList;
 
 
 
@@ -61,11 +63,14 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
     protected void onRestart() {
         super.onRestart();
         showList();
+        if (dao.selectAll().size() > 0) tvEmptyList.setVisibility(View.GONE);
+        else tvEmptyList.setVisibility(View.VISIBLE);
     }
 
     public void linkLayout() {
         btnAddCard = findViewById(R.id.btnAddCard);
         rvCards = findViewById(R.id.rvCards);
+        tvEmptyList = findViewById(R.id.tvEmptyList);
     }
 
     public void showList() {
@@ -102,6 +107,13 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
 
         btn1.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "1"));
         btn2.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "2"));
+        btn3.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "3"));
+        btn4.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "4"));
+        btn5.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "5"));
+        btn6.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "6"));
+        btn7.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "7"));
+        btn8.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "8"));
+        btn9.setOnClickListener(v -> etKeyConfirm.setText(etKeyConfirm.getText().toString() + "9"));
 
 
 
