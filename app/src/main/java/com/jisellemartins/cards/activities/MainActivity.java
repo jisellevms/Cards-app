@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         showList();
         if (dao.selectAll().size() > 0) tvEmptyList.setVisibility(View.GONE);
         else tvEmptyList.setVisibility(View.VISIBLE);
@@ -168,5 +173,6 @@ public class MainActivity extends AppCompatActivity implements UpdateLayout {
     @Override
     public void updateList() {
         new Handler().postDelayed(() -> showList() ,1000);
+        onResume();
     }
 }
